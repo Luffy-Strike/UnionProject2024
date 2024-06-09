@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import getDogData from "../utils/getDogData";
 
-const Cats = () => {
+const Dogs = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -37,4 +37,4 @@ const Cats = () => {
   );
 }
 
-export default Cats;
+export default Dogs;
