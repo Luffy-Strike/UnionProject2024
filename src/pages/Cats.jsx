@@ -29,6 +29,7 @@ const Cats = () => {
     <div>
       {data && data.map((cat, index) => (
         <div key={index}>
+          <h2>{cat.breeds[0].name}</h2>
           <img src={cat.url} alt="A cute cat" />
         </div>
       ))}
