@@ -24,7 +24,7 @@ const Dogs = () => {
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
-
+//Hello world
   return (
     <div>
       {data && data.map((dog, index) => (
