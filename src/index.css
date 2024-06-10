@@ -39,6 +39,8 @@ button {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
+  margin: 10px;
+  margin-top: 10px;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
@@ -51,7 +53,7 @@ button:hover {
 }
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: 15px auto -webkit-focus-ring-color;
 }
 
 @media (prefers-color-scheme: light) {
@@ -65,4 +67,46 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+.header {
+  width: 100%;
+  background: #fff;
+  backface-visibility: hidden;
+  transition: transform 0.3s;
+  position: fixed;
+  top: 0;
+  border-bottom: 1px solid #eee;
+}
+
+.btn-new {
+  margin-top: 15px;
+  border-radius: 10px;
+  color: white;
+  transition: .2s linear;
+  background: #0B63F6;
+}
+
+.btn-new:hover {
+  box-shadow: 0 0 0 2px white, 0 0 0 4px #3C82F8;
+}
+
+.card_img {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px 15px 15px 15px;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;   
+}
+
+.card_content {
+  padding: 36px 45px 41px 45px;
+  background-color: #fff;
+  border-radius: 15px 15px 15px 15px;
+}
+
+.card_content-title {
+  font-size: 90px;
+  font-weight: 800;
+  color: #1a1a1a;
 }
