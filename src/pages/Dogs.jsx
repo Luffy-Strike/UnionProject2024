@@ -8,25 +8,31 @@ const Dogs = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [open, setOpen] = useState(false);
-  const controlVar = '';
+  // const controlVar = '';
   // useEffect - хук, нужный для отправки асинхронного запроса - в данном случае для получения данных из апишки
   useEffect(() => {
-    const fetchData = async (fn) => {
+    let isMounted = true;
+
+    const fetchData = async () => {
       try {
-        const result = await fn();
-        setData(result);
-        setLoading(false);
+        const result = await getDogData();
+        if (isMounted) {
+          setData(result);
+          setLoading(false);
+        }
       } catch (error) {
-        setError(error);
-        setLoading(false);
+        if (isMounted) {
+          setError(error);
+          setLoading(false);
+        }
       }
     };
-    
-    fetchData(getDogData);
-    console.log('mount');
-    return (() => {
-      console.log('unsub');
-    })
+
+    fetchData();
+
+    return () => {
+      isMounted = false; // Cleanup function to cancel request if component unmounts
+    };
   }, []);
 
   if (loading) return <div>Loading...</div>;

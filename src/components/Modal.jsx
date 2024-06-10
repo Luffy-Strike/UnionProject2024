@@ -5,20 +5,20 @@ import { getDogDataById } from "../utils/getDogData";
 const ModalComponent = ({ id, breed, open, onClose }) => {
   const [data, setData] = useState(null);
 
-  useEffect(() => {
-    async (id) => {
-      try {
-        const result = await getDogDataById(id);
-        setData(result);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  // useEffect(() => {
+  //   async (id) => {
+  //     try {
+  //       const result = await getDogDataById(id);
+  //       setData(result);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
 
-    return (() => {
-      console.log('unsub');
-    })
-  }, [id]);
+  //   return (() => {
+  //     console.log('unsub');
+  //   })
+  // }, [id]);
 
   return (
     <Modal open={open} onClose={onClose}>
