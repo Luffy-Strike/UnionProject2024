@@ -5,20 +5,22 @@ import { getDogDataById } from "../utils/getDogData";
 const ModalComponent = ({ id, breed, open, onClose }) => {
   const [data, setData] = useState(null);
 
-  // useEffect(() => {
-  //   async (id) => {
-  //     try {
-  //       const result = await getDogDataById(id);
-  //       setData(result);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await getDogDataById(id);
+        setData(result);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-  //   return (() => {
-  //     console.log('unsub');
-  //   })
-  // }, [id]);
+    fetchData();
+
+    return (() => {
+      console.log('unsub');
+    })
+  }, []);
 
   return (
     <Modal open={open} onClose={onClose}>
@@ -29,7 +31,7 @@ const ModalComponent = ({ id, breed, open, onClose }) => {
         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
           Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
         </Typography>
-        {/* {console.log(data)} */}
+        {console.log(data)}
       </Box>
     </Modal>
   );

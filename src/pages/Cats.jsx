@@ -8,18 +8,28 @@ const Cats = () => {
   
   // useEffect - хук, нужный для отправки асинхронного запроса - в данном случае для получения данных из апишки
   useEffect(() => {
+    let isMounted = true;
+
     const fetchData = async () => {
       try {
         const result = await getCatData();
-        setData(result);
-        setLoading(false);
+        if (isMounted) {
+          setData(result);
+          setLoading(false);
+        }
       } catch (error) {
-        setError(error);
-        setLoading(false);
+        if (isMounted) {
+          setError(error);
+          setLoading(false);
+        }
       }
     };
 
     fetchData();
+
+    return () => {
+      isMounted = false; // Cleanup function to cancel request if component unmounts
+    };
   }, []);
 
   if (loading) return <div>Loading...</div>;
