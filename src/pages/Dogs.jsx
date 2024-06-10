@@ -5,7 +5,6 @@ const Dogs = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
   // useEffect - хук, нужный для отправки асинхронного запроса - в данном случае для получения данных из апишки
   useEffect(() => {
     const fetchData = async () => {
@@ -24,15 +23,18 @@ const Dogs = () => {
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
-//Hello world
+
   return (
     <div>
       {data && data.map((dog, index) => (
         <div key={index}>
           <h2>{dog.breeds[0].name}</h2>
-          <img src={dog.url} alt="A cute doggo" />
+          <img src={dog.url} alt="A cute doggo"/>
         </div>
       ))}
+      <button className='btn-new'>
+        Подробнее
+      </button>
     </div>
   );
 }
