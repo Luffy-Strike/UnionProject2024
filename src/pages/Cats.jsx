@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import getCatData from "../utils/getCatData";
+import { getCatData, getCatDataById } from "../utils/getCatData";
 
 const Cats = () => {
   const [data, setData] = useState(null);

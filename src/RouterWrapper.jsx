@@ -1,8 +1,16 @@
 import { Routes, Route } from "react-router-dom";
 import Cats from './pages/Cats';
 import Dogs from './pages/Dogs';
+import { useEffect } from "react";
 
 const RouterWrapper = () => {
+  useEffect(() => {
+    console.log('mount');
+    return(() => {
+      console.log('unmount');
+    })
+  }, []);
+
   return (
       <Routes>
         <Route path="/cats" element={<Cats />} />

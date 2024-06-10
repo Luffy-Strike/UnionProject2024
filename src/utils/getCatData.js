@@ -1,6 +1,6 @@
-export default async () => {
-  const apiKey = import.meta.env.VITE_CAT_API_KEY;
+const apiKey = import.meta.env.VITE_CAT_API_KEY;
 
+const getCatData = async () => {
   const headers = new Headers({
     "Content-Type": "application/json",
     "x-api-key": apiKey,
@@ -17,4 +17,10 @@ export default async () => {
   const data = await response.json();
 
   return data;
-}
+};
+
+const getCatDataById = async () => {
+
+};
+
+export { getCatData, getCatDataById };
