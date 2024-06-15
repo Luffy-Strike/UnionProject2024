@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import getDogData from "../utils/getDogData";
+import { getDogData } from "../utils/getDogData";
+import Modal from "../components/Modal";
 
 const Dogs = () => {
   const [data, setData] = useState(null);
@@ -30,7 +31,7 @@ const Dogs = () => {
         <div key={index} className='card_content'>
           <h2 className='card_content-title'>{dog.breeds[0].name}</h2>
           <img src={dog.url} alt="A cute doggo" className='card_img' />
-          <button className='btn-new'>Подробнее</button>
+          <Modal id={dog.id}></Modal>
         </div>
       ))}
     </div>
