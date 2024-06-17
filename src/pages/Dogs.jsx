@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getDogData } from "../utils/getDogData";
 import Modal from "../components/Modal";
 import Header from "../components/Header";
-import { Card } from "@mui/material";
+import { Card, Box } from "@mui/material";
 
 const Dogs = () => {
   const [data, setData] = useState(null);
@@ -28,17 +28,21 @@ const Dogs = () => {
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <div className="dogs_container">
+    <>
       <Header />
-      {data &&
-        data.map((dog, index) => (
-          <Card key={index} className="card_content">
-            <h2 className="card_content-title">{dog.breeds[0].name}</h2>
-            <img src={dog.url} alt="A cute doggo" className="card_img" />
-            <Modal id={dog.id} type="dog"></Modal>
-          </Card>
-        ))}
-    </div>
+      <Box sx={{ display: "flex", flexWrap: "wrap", gap: "20px", alignItems: "center" }}>
+        {data &&
+          data.map((dog, index) => (
+            <Card key={index} className="card_content" sx={{ maxWidth: 400, minWidth: 250, flex: "1 0 150px"}}>
+              <h2>{dog.breeds[0].name}</h2>
+              <Box sx={{maxWidth: "300px"}}>
+                <img src={dog.url} alt="A cute dog" className="card_img" />
+              </Box>
+              <Modal id={dog.id} type="dog"></Modal>
+            </Card>
+          ))}
+      </Box>
+    </>
   );
 };
 
