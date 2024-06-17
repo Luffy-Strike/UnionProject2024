@@ -1,6 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import { getDogData } from "../utils/getDogData";
 import Modal from "../components/Modal";
+import Header from "../components/Header";
+import { Card } from "@mui/material";
 
 const Dogs = () => {
   const [data, setData] = useState(null);
@@ -26,16 +28,18 @@ const Dogs = () => {
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <div className='dogs_container'>
-      {data && data.map((dog, index) => (
-        <div key={index} className='card_content'>
-          <h2 className='card_content-title'>{dog.breeds[0].name}</h2>
-          <img src={dog.url} alt="A cute doggo" className='card_img' />
-          <Modal id={dog.id}></Modal>
-        </div>
-      ))}
+    <div className="dogs_container">
+      <Header />
+      {data &&
+        data.map((dog, index) => (
+          <Card key={index} className="card_content">
+            <h2 className="card_content-title">{dog.breeds[0].name}</h2>
+            <img src={dog.url} alt="A cute doggo" className="card_img" />
+            <Modal id={dog.id} type="dog"></Modal>
+          </Card>
+        ))}
     </div>
   );
-}
+};
 
 export default Dogs;

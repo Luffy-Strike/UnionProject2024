@@ -2,15 +2,15 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <header className="header">
+    <header>
       <nav>
         <Link to="/cats">
-          <button className="btn-header">
+          <button>
             Кошки
           </button>
         </Link>
         <Link to="/dogs">
-          <button className="btn-header">
+          <button>
             Собаки
           </button>
         </Link>

@@ -26,7 +26,7 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
-  min-width: 320px;
+  min-width: 100vw;
   min-height: 100vh;
 }
 
@@ -73,7 +73,6 @@ button:focus-visible {
   background: #fff;
   backface-visibility: hidden;
   transition: transform 0.3s;
-  position: fixed;
   top: 0;
   border-bottom: 1px solid #eee;
 }
@@ -100,7 +99,7 @@ button:focus-visible {
 }
 
 .card_content {
-  width: 320px; 
+  min-width: 250px; 
   height: auto; 
   background-color: #fff;
   border-radius: 15px;

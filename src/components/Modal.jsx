@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import { useState } from "react";
 import { getDogDataById } from "../utils/getDogData";
+import { getCatDataById } from "../utils/getCatData";
 
 const style = {
   position: "absolute",
@@ -18,7 +19,12 @@ const style = {
   color: "#000",
 };
 
-const ModalComponent = ({ id }) => {
+const mapping = {
+  'cat': (id) => getCatDataById(id),
+  'dog': (id) => getDogDataById(id),
+};
+
+const ModalComponent = ({ id, type }) => {
   const [data, setData] = useState(null);
   const [open, setOpen] = useState(false);
 
@@ -29,7 +35,7 @@ const ModalComponent = ({ id }) => {
   const handleOpen = async () => {
     setOpen(true);
     try {
-      const result = await getDogDataById(id);
+      const result = await mapping[type](id);
       setData(result);
     } catch (error) {
       console.log(error);
@@ -54,14 +60,6 @@ const ModalComponent = ({ id }) => {
             <Typography>Bred for: {data.breeds[0].bred_for}</Typography>
             <Typography>Group: {data.breeds[0].breed_group}</Typography>
             <Typography>Life span: {data.breeds[0].life_span}</Typography>
-            <Box>Height
-              <Typography>
-                Imperial: {data.breeds[0].height.imperial}
-              </Typography>
-              <Typography>
-                Metric: {data.breeds[0].height.metric}
-              </Typography>
-            </Box>
             <Box>Weight
               <Typography>
                 Imperial: {data.breeds[0].weight.imperial}
