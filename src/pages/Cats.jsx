@@ -58,10 +58,11 @@ const Cats = () => {
               }}
             >
               <h2>{cat.breeds[0].name}</h2>
+              {console.log(cat)}
               <Box sx={{ maxWidth: "300px" }}>
                 <img src={cat.url} alt="A cute cat" className="card_img" />
               </Box>
-              <Modal id={cat.id} type="cat"></Modal>
+              <Modal id={cat.breeds[0].id} type="cat"></Modal>
             </Card>
           ))}
       </Box>
