@@ -30,12 +30,34 @@ const Dogs = () => {
   return (
     <>
       <Header />
-      <Box sx={{ display: "flex", flexWrap: "wrap", gap: "20px", alignItems: "center" }}>
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: "repeat(4, 1fr)",
+          gridGap: "20px",
+          alignItems: "center",
+        }}
+      >
         {data &&
-          data.map((dog, index) => (
-            <Card key={index} className="card_content" sx={{ maxWidth: 400, minWidth: 250, flex: "1 0 150px"}}>
+          data.slice(0, 8).map((dog, index) => (
+            <Card
+              key={index}
+              className="card_content"
+              sx={{
+                maxWidth: 400,
+                minWidth: 250,
+                flex: "1 0 150px",
+                backgroundColor: "#333333",
+                color: "#fff",
+                boxShadow: 3,
+                transition: "box-shadow 0.3s ease",
+                ':hover': {
+                  boxShadow: 20,
+                },
+              }}
+            >
               <h2>{dog.breeds[0].name}</h2>
-              <Box sx={{maxWidth: "300px"}}>
+              <Box sx={{ maxWidth: "300px" }}>
                 <img src={dog.url} alt="A cute dog" className="card_img" />
               </Box>
               <Modal id={dog.id} type="dog"></Modal>

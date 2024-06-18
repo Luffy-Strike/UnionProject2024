@@ -31,12 +31,34 @@ const Cats = () => {
   return (
     <>
       <Header />
-      <Box sx={{ display: "flex", flexWrap: "wrap", gap: "20px", alignItems: "center" }}>
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: "repeat(4, 1fr)",
+          gridGap: "20px",
+          alignItems: "center",
+        }}
+      >
         {data &&
-          data.map((cat, index) => (
-            <Card key={index} className="card_content" sx={{ maxWidth: 400, minWidth: 250, flex: "1 0 150px"}}>
+          data.slice(0, 8).map((cat, index) => (
+            <Card
+              key={index}
+              className="card_content"
+              sx={{
+                maxWidth: 400,
+                minWidth: 250,
+                flex: "1 0 150px",
+                backgroundColor: "#333333",
+                color: "#fff",
+                boxShadow: 3,
+                transition: "box-shadow 0.3s ease",
+                ':hover': {
+                  boxShadow: 20,
+                },
+              }}
+            >
               <h2>{cat.breeds[0].name}</h2>
-              <Box sx={{maxWidth: "300px"}}>
+              <Box sx={{ maxWidth: "300px" }}>
                 <img src={cat.url} alt="A cute cat" className="card_img" />
               </Box>
               <Modal id={cat.id} type="cat"></Modal>

@@ -28,6 +28,7 @@ body {
   place-items: center;
   min-width: 100vw;
   min-height: 100vh;
+  background-color: #2c2c2c;
 }
 
 h1 {
@@ -44,12 +45,12 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #fffcfc;
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: #f7e0e0;
 }
 button:focus,
 button:focus-visible {
@@ -70,11 +71,11 @@ button:focus-visible {
 }
 .header {
   width: 100%;
-  background: #fff;
+  background: #2c2c2c;
   backface-visibility: hidden;
   transition: transform 0.3s;
   top: 0;
-  border-bottom: 1px solid #eee;
+  
 }
 
 .btn-new {
@@ -141,4 +142,3 @@ button:focus-visible {
 .btn-new:hover {
   box-shadow: 0 0 0 2px white, 0 0 0 4px #3C82F8; 
 }
-
