@@ -2,12 +2,15 @@ import { useEffect, useState } from "react";
 import getCatData from "../utils/getCatData";
 import Modal from "../components/Modal";
 import Header from "../components/Header";
-import { Card, Box } from "@mui/material";
+import { Card, Box, IconButton } from "@mui/material";
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 
 const Cats = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [favorites, setFavorites] = useState([]);
 
   // useEffect - хук, нужный для отправки асинхронного запроса - в данном случае для получения данных из апишки
   useEffect(() => {
@@ -24,6 +27,14 @@ const Cats = () => {
 
     fetchData();
   }, []);
+
+  const toggleFavorite = (dogId) => {
+    setFavorites((prevFavorites) =>
+      prevFavorites.includes(dogId)
+        ? prevFavorites.filter((id) => id !== dogId)
+        : [...prevFavorites, dogId]
+    );
+  };
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
@@ -51,18 +62,37 @@ const Cats = () => {
                 backgroundColor: "#333333",
                 color: "#fff",
                 boxShadow: 3,
+                position: "relative",
                 transition: "box-shadow 0.3s ease",
                 ':hover': {
                   boxShadow: 20,
                 },
               }}
             >
+              <IconButton
+                onClick={() => toggleFavorite(cat.id)}
+                sx={{
+                  position: "absolute",
+                  top: 8,
+                  right: 8,
+                  color: "white",
+                  backgroundColor: "rgba(0, 0, 0, 0.5)",
+                  ':hover': {
+                    backgroundColor: "rgba(0, 0, 0, 0.7)",
+                  },
+                }}
+              >
+                {favorites.includes(cat.id) ? (
+                  <FavoriteOutlinedIcon sx={{ color: "red" }} />
+                ) : (
+                  <FavoriteBorderOutlinedIcon />
+                )}
+              </IconButton>
               <h2>{cat.breeds[0].name}</h2>
-              {console.log(cat)}
               <Box sx={{ maxWidth: "300px" }}>
                 <img src={cat.url} alt="A cute cat" className="card_img" />
               </Box>
-              <Modal id={cat.breeds[0].id} type="cat"></Modal>
+              <Modal id={cat.id} type="cat"></Modal>
             </Card>
           ))}
       </Box>

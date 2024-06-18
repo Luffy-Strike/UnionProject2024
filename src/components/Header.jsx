@@ -15,6 +15,11 @@ const Header = () => {
           Собаки
           </button>
         </Link>
+        <Link to="/favs">
+          <button>
+          избранные
+          </button>
+        </Link>
       </nav>
     </header>
   );
