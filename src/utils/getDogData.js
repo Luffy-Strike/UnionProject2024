@@ -1,3 +1,5 @@
+import filterByRatio from "./filterByRatio";
+
 const apiKey = import.meta.env.VITE_DOG_API_KEY;
 
 const headers = new Headers({
@@ -12,11 +14,11 @@ var requestOptions = {
 };
 
 export const getDogData = async () => {
-  const response = await fetch("https://api.thedogapi.com/v1/images/search?limit=10&has_breeds=1", requestOptions)
+  const response = await fetch("https://api.thedogapi.com/v1/images/search?size=med&limit=40&has_breeds=1", requestOptions)
   .catch(error => console.log('error', error));
   const data = await response.json();
 
-  return data;
+  return filterByRatio(data);
 };
 
 export const getDogDataById = async (id) => {
