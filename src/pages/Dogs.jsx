@@ -60,7 +60,7 @@ const Dogs = () => {
               <Box sx={{ maxWidth: "300px" }}>
                 <img src={dog.url} alt="A cute dog" className="card_img" />
               </Box>
-              <Modal id={dog.id} type="dog"></Modal>
+              <Modal id={dog.breeds[0].id} type="dog"></Modal>
             </Card>
           ))}
       </Box>
