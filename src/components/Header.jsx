@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
-    <header>
+    <header className="header">
       <nav>
         <Link to="/cats">
           <button>
@@ -11,12 +12,12 @@ const Header = () => {
         </Link>
         <Link to="/dogs">
           <button>
-            Собаки
+          Собаки
           </button>
         </Link>
       </nav>
     </header>
-  )
+  );
 };
 
 export default Header;
