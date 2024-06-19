@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+// pages/Dogs.js
+import React, { useEffect, useState } from 'react';
 import { getDogData } from "../utils/getDogData";
+import { Card, Box, IconButton } from "@mui/material";
 import Modal from "../components/Modal";
 import Header from "../components/Header";
-import { Card, Box, IconButton } from "@mui/material";
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 
@@ -40,7 +41,7 @@ const Dogs = () => {
 
   return (
     <>
-      <Header />
+      <Header favorites={favorites} data={data} />
       <Box
         sx={{
           display: "grid",
