@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import getCatData from "../utils/getCatData";
 import Modal from "../components/Modal";
 import Header from "../components/Header";
@@ -6,27 +6,11 @@ import FavoritesModal from "../components/Favorites";
 import { Card, Box, IconButton } from "@mui/material";
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
+import { BreedsContext } from '../App';
 
 const Cats = () => {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [favorites, setFavorites] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await getCatData();
-        setData(result); // Предполагается, что данные содержат поля id, name и type: 'cat'
-        setLoading(false);
-      } catch (error) {
-        setError(error);
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const cats = useContext(BreedsContext).cats;
 
   const toggleFavorite = (catId) => {
     setFavorites((prevFavorites) =>
@@ -36,8 +20,8 @@ const Cats = () => {
     );
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  // if (loading) return <div>Loading...</div>;
+  // if (error) return <div>Error: {error.message}</div>;
 
   return (
     <>
@@ -50,8 +34,8 @@ const Cats = () => {
           alignItems: "center",
         }}
       >
-        {data &&
-          data.slice(0, 8).map((cat, index) => (
+        {cats &&
+          cats.slice(0, 8).map((cat, index) => (
             <Card
               key={index}
               className="card_content"
@@ -88,11 +72,11 @@ const Cats = () => {
                   <FavoriteBorderOutlinedIcon />
                 )}
               </IconButton>
-              <h2>{cat.breeds[0].name}</h2>
+              <h2>{cat.name}</h2>
               <Box sx={{ maxWidth: "300px" }}>
-                <img src={cat.url} alt="A cute cat" className="card_img" style={{ borderRadius: '5px' }} />
+                <img src={cat.image.url} alt="A cute cat" className="card_img" style={{ borderRadius: '5px' }} />
               </Box>
-              <Modal id={cat.breeds[0].id} type="cat"></Modal>
+              <Modal id={cat.id} type="cat"></Modal>
             </Card>
           ))}
       </Box>
@@ -101,7 +85,7 @@ const Cats = () => {
         open={false} // Устанавливайте значение open в true, когда модальное окно открыто
         onClose={() => {}} // Обработчик закрытия модального окна
         favorites={favorites} // Массив избранных элементов
-        data={data} // Данные кошек
+        data={cats} // Данные кошек
         type="cat" // Тип животного (для фильтрации данных)
       />
     </>

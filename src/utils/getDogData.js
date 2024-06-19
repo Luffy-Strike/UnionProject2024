@@ -42,3 +42,8 @@ export const getDogDataById = async (id) => {
 
   return data;
 }
+
+export const getBreeds = async () => {
+  const response = await fetch(`https://api.thedogapi.com/v1/breeds`, requestOptions);
+  return await response.json();
+}

@@ -1,32 +1,16 @@
 // pages/Dogs.js
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { getDogData } from "../utils/getDogData";
 import { Card, Box, IconButton } from "@mui/material";
 import Modal from "../components/Modal";
 import Header from "../components/Header";
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
+import { BreedsContext } from '../App';
 
 const Dogs = () => {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [favorites, setFavorites] = useState([]); // Хранит избранные собаки
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await getDogData();
-        setData(result);
-        setLoading(false);
-      } catch (error) {
-        setError(error);
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const [favorites, setFavorites] = useState([]);
+  const dogs = useContext(BreedsContext).dogs;
 
   const toggleFavorite = (dogId) => {
     setFavorites((prevFavorites) =>
@@ -36,12 +20,10 @@ const Dogs = () => {
     );
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <>
-      <Header favorites={favorites} data={data} />
+      <Header favorites={favorites} data={dogs} />
       <Box
         sx={{
           display: "grid",
@@ -50,8 +32,8 @@ const Dogs = () => {
           alignItems: "center",
         }}
       >
-        {data &&
-          data.slice(0, 8).map((dog, index) => (
+        {dogs &&
+          dogs.slice(0, 8).map((dog, index) => (
             <Card
               key={index}
               className="card_content"
@@ -88,11 +70,11 @@ const Dogs = () => {
                   <FavoriteBorderOutlinedIcon />
                 )}
               </IconButton>
-              <h2>{dog.breeds[0].name}</h2>
+              <h2>{dog.name}</h2>
               <Box sx={{ maxWidth: "300px" }}>
-                <img src={dog.url} alt="A cute dog" className="card_img" />
+                <img src={dog.image.url} alt="A cute dog" className="card_img" />
               </Box>
-              <Modal id={dog.breeds[0].id} type="dog"></Modal>
+              <Modal id={dog.id} type="dog"></Modal>
             </Card>
           ))}
       </Box>
