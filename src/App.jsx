@@ -5,17 +5,19 @@ import "./App.css";
 import { getBreeds as getCatBreeds } from "./utils/getCatData";
 import { getBreeds as getDogBreeds } from "./utils/getDogData";
 import { createContext } from "react";
+import { useEffect, useState } from "react";
 
-const BreedsContext = createContext({});
+export const BreedsContext = createContext({});
 
 function App() {
+  const [breeds, setBreeds] = useState([]);
   useEffect(() => {
     const fetchBreeds = async () => {
       try {
         const dogData = await getDogBreeds();
         const catData = await getCatBreeds();
 
-        const allBreeds = [...dogData, ...catData];
+        const allBreeds = { 'dogs': [...dogData], 'cats': [...catData]};
         setBreeds(allBreeds);
       } catch (error) {
         console.error("Error fetching data: ", error);
@@ -27,7 +29,7 @@ function App() {
   }, [breeds]);
 
   return (
-    <BreedsContext.Provider>
+    <BreedsContext.Provider value={breeds}>
       <BrowserRouter>
         <RouterWrapper />
       </BrowserRouter>
