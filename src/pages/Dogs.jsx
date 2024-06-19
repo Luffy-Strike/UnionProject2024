@@ -33,7 +33,7 @@ const Dogs = () => {
         }}
       >
         {dogs &&
-          dogs.slice(0, 8).map((dog, index) => (
+          dogs.map((dog, index) => (
             <Card
               key={index}
               className="card_content"
