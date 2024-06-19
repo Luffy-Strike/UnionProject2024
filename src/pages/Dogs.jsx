@@ -20,7 +20,7 @@ const Dogs = () => {
     );
   };
 
-
+// console.log(toggleFavorite);
   return (
     <>
       <Header favorites={favorites} data={dogs} />
