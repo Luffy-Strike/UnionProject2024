@@ -1,14 +1,18 @@
-import { useEffect, useState } from "react";
+// pages/Dogs.js
+import React, { useEffect, useState } from 'react';
 import { getDogData } from "../utils/getDogData";
+import { Card, Box, IconButton } from "@mui/material";
 import Modal from "../components/Modal";
 import Header from "../components/Header";
-import { Card, Box } from "@mui/material";
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 
 const Dogs = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  // useEffect - хук, нужный для отправки асинхронного запроса - в данном случае для получения данных из апишки
+  const [favorites, setFavorites] = useState([]); // Хранит избранные собаки
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -24,12 +28,20 @@ const Dogs = () => {
     fetchData();
   }, []);
 
+  const toggleFavorite = (dogId) => {
+    setFavorites((prevFavorites) =>
+      prevFavorites.includes(dogId)
+        ? prevFavorites.filter((id) => id !== dogId)
+        : [...prevFavorites, dogId]
+    );
+  };
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
   return (
     <>
-      <Header />
+      <Header favorites={favorites} data={data} />
       <Box
         sx={{
           display: "grid",
@@ -50,17 +62,37 @@ const Dogs = () => {
                 backgroundColor: "#333333",
                 color: "#fff",
                 boxShadow: 3,
+                position: "relative",
                 transition: "box-shadow 0.3s ease",
                 ':hover': {
                   boxShadow: 20,
                 },
               }}
             >
+              <IconButton
+                onClick={() => toggleFavorite(dog.id)}
+                sx={{
+                  position: "absolute",
+                  top: 8,
+                  right: 8,
+                  color: "white",
+                  backgroundColor: "rgba(0, 0, 0, 0.5)",
+                  ':hover': {
+                    backgroundColor: "rgba(0, 0, 0, 0.7)",
+                  },
+                }}
+              >
+                {favorites.includes(dog.id) ? (
+                  <FavoriteOutlinedIcon sx={{ color: "red" }} />
+                ) : (
+                  <FavoriteBorderOutlinedIcon />
+                )}
+              </IconButton>
               <h2>{dog.breeds[0].name}</h2>
               <Box sx={{ maxWidth: "300px" }}>
                 <img src={dog.url} alt="A cute dog" className="card_img" />
               </Box>
-              <Modal id={dog.breeds[0].id} type="dog"></Modal>
+              <Modal id={dog.id} type="dog"></Modal>
             </Card>
           ))}
       </Box>
