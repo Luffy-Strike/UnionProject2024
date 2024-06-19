@@ -15,7 +15,7 @@ const style = {
   width: 600,
   bgcolor: "#262626",
   boxShadow: 80000,
-  height: 600,
+  height: 800,
   color: "#fff",
   padding: "20px",
   borderRadius: "10px",
@@ -54,6 +54,31 @@ const ModalComponent = ({ id, type }) => {
       fetchData();
     }
   }, [open]);
+  const getImageUrl = () => {
+    if (!data) {
+      return '';
+    }
+    if (location.pathname === '/cats') {
+      return `https://cdn2.thecatapi.com/images/${data.reference_image_id}.jpg`;
+    } else if (location.pathname === '/dogs') {
+      return `https://cdn2.thedogapi.com/images/${data.reference_image_id}.jpg`;
+    } else {
+      return '';
+    }
+  };
+const getWikipediaUrl =() => {
+   if (!data) {
+    return '';
+   }
+   if (location.pathname === '/cats') {
+    return `https://en.wikipedia.org/wiki/${data.name}`;
+  } else if (location.pathname === '/dogs') {
+    return `https://en.wikipedia.org/wiki/${data.name}`;
+  } else {
+    return '';
+  }
+
+}
 
   return (
     <>
@@ -79,6 +104,13 @@ const ModalComponent = ({ id, type }) => {
         <Box sx={{ ...style }}>
           {data ? (
             <>
+              <img
+                src={getImageUrl()}
+                alt={data.name}
+                height="300"
+                style={{ display: 'block', margin: '0 auto' }}
+                weight ="600"
+              />
               <Typography
                 id="modal-modal-title"
                 variant="h4"
@@ -88,9 +120,7 @@ const ModalComponent = ({ id, type }) => {
                   fontWeight: "bold",
                   marginBottom: "20px",
                 }}
-              >
-                {data.name}
-              </Typography>
+              >{data.name}</Typography>
               <Box
                 sx={{
                   display: "block",
@@ -104,11 +134,11 @@ const ModalComponent = ({ id, type }) => {
                     component="h5"
                     sx={{ fontWeight: "bold", color: "white" }}
                   >
-                    Bred for:
+                    Temperament:
                   </Typography>
-                  <Typography>
-                    {data.breeds && data.breeds[0].bred_for}
-                  </Typography>
+                  <Box sx={{ fontWeight: "normal" }}>
+                    <Typography>{data.temperament}</Typography>
+                  </Box>
                 </Box>
                 <Box sx={{ display: "block", justifyContent: "start" }}>
                   <Typography
@@ -116,11 +146,9 @@ const ModalComponent = ({ id, type }) => {
                     component="h5"
                     sx={{ fontWeight: "bold", color: "white" }}
                   >
-                    Group:
+                    Origin:
                   </Typography>
-                  <Typography>
-                    {data.breeds && data.breeds[0].breed_group}
-                  </Typography>
+                  <Typography>{data.origin}</Typography>
                 </Box>
                 <Box sx={{ display: "block", justifyContent: "start" }}>
                   <Typography
@@ -128,11 +156,9 @@ const ModalComponent = ({ id, type }) => {
                     component="h5"
                     sx={{ fontWeight: "bold", color: "white" }}
                   >
-                    Life span:
+                    Life Span:
                   </Typography>
-                  <Typography>
-                    {data.breeds && data.breeds[0].life_span}
-                  </Typography>
+                  <Typography>{data.life_span}</Typography>
                 </Box>
                 <Box sx={{ display: "block", justifyContent: "start" }}>
                   <Typography
@@ -144,40 +170,30 @@ const ModalComponent = ({ id, type }) => {
                   </Typography>
                   <Box sx={{ fontWeight: "normal" }}>
                     <Typography>
-                      Imperial: {data.breeds && data.breeds[0].weight.imperial}
+                      Imperial: {data.weight.imperial}
                     </Typography>
                     <Typography>
-                      Metric: {data.breeds && data.breeds[0].weight.metric}
-                    </Typography>
-                  </Box>
-                </Box>
-                <Box sx={{ display: "block", justifyContent: "start" }}>
-                  <Typography
-                    variant="h6"
-                    component="h5"
-                    sx={{ fontWeight: "bold", color: "white" }}
-                  >
-                    Temperament:
-                  </Typography>
-                  <Box sx={{ fontWeight: "normal" }}>
-                    <Typography>
-                      {data.breeds && data.breeds[0].temperament}
+                      Metric: {data.weight.metric}
                     </Typography>
                   </Box>
                 </Box>
               </Box>
-              {data.breeds && (
-                <Link
-                  href={data.breeds[0].wikipedia_url}
-                  target="_blank"
-                  rel="noopener"
-                  variant="h6"
-                  component="h5"
-                  sx={{ color: "white" }}
-                >
-                  Learn more
-                </Link>
-              )}
+              <Button
+                variant="contained"
+                 color="primary"
+                href={getWikipediaUrl()}
+                target="_blank"
+                  rel="noopener noreferrer"
+                sx={{
+                backgroundColor: "#fff",
+                color: "black",
+                "&:hover": {
+                backgroundColor: "#f5f5f5",},
+          marginTop: "20px",
+        }}
+      >
+        Learn more on Wikipedia
+      </Button>
             </>
           ) : (
             <Typography>Loading...</Typography>

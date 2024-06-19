@@ -84,6 +84,7 @@ button:focus-visible {
   color: white;
   transition: .2s linear;
   background: #0B63F6;
+  
 }
 
 .btn-new:hover {
