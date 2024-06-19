@@ -2,7 +2,6 @@
 import React from 'react';
 import { Box, Modal, Typography, IconButton } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
-
 const FavoritesModal = ({ open, onClose, favorites, data }) => {
   const favoriteDogs = data?.filter(dog => favorites.includes(dog.id));
 
