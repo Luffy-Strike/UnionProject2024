@@ -127,6 +127,7 @@ button:focus-visible {
   object-position: top;
   object-fit: cover; 
   max-height: 200px; 
+  border-radius: 15px 15px 15px 15px;
 }
 
 .btn-new {
