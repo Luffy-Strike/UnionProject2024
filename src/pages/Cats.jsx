@@ -88,7 +88,7 @@ const Cats = () => {
                   <FavoriteBorderOutlinedIcon />
                 )}
               </IconButton>
-              <h2>{cat.name}</h2>
+              <h2>{cat.breeds[0].name}</h2>
               <Box sx={{ maxWidth: "300px" }}>
                 <img src={cat.url} alt="A cute cat" className="card_img" style={{ borderRadius: '5px' }} />
               </Box>
