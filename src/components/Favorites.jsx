@@ -1,10 +1,14 @@
 // components/FavoritesModal.js
-import React from 'react';
+import React, {useContext} from 'react';
 import { Box, Modal, Typography, IconButton } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
+import { Context } from '../App';
 
-const FavoritesModal = ({ open, onClose, favorites, data }) => {
-  const favoriteDogs = data?.filter(dog => favorites.includes(dog.id));
+const FavoritesModal = ({ open, onClose, data }) => {
+  const {favorites} = useContext(Context);
+
+
+
 
   return (
     <Modal
@@ -41,13 +45,12 @@ const FavoritesModal = ({ open, onClose, favorites, data }) => {
           </IconButton>
         </Box>
         <Box id="favorites-modal-description" sx={{ mt: 2 }}>
-          {favoriteDogs?.length > 0 ? (
-            favoriteDogs.map(dog => (
-              <Box key={dog.id} sx={{ mb: 2 }}>
-                <Typography variant="body1" sx={{ color: 'black' }}>{dog.name}</Typography>
-              </Box>
-            ))
-          ) : (
+          {favorites?.length > 0 ? (
+            <>{favorites.map(favorite => (
+              <Box key={favorite.id} sx={{ mb: 2 }}>
+                <Typography variant="body1" sx={{ color: 'black' }}>{favorite.name}</Typography>
+              </Box>))} </>)
+           : (
             <Typography variant="body2" sx={{ color: 'black' }}>Нет избранных</Typography>
           )}
         </Box>

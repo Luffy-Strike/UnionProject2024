@@ -6,11 +6,10 @@ import FavoritesModal from "../components/Favorites";
 import { Card, Box, IconButton } from "@mui/material";
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
-import { BreedsContext } from '../App';
+import { Context } from '../App';
 
 const Cats = () => {
-  const [favorites, setFavorites] = useState([]);
-  const cats = useContext(BreedsContext).cats;
+  const {breeds: {cats}, favorites, setFavorites} = useContext(Context);
 
   const toggleFavorite = (catId) => {
     setFavorites((prevFavorites) =>
@@ -84,7 +83,6 @@ const Cats = () => {
       <FavoritesModal
         open={false} // Устанавливайте значение open в true, когда модальное окно открыто
         onClose={() => {}} // Обработчик закрытия модального окна
-        favorites={favorites} // Массив избранных элементов
         data={cats} // Данные кошек
         type="cat" // Тип животного (для фильтрации данных)
       />
