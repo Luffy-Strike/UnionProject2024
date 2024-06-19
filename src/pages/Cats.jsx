@@ -92,7 +92,7 @@ const Cats = () => {
               <Box sx={{ maxWidth: "300px" }}>
                 <img src={cat.url} alt="A cute cat" className="card_img" style={{ borderRadius: '5px' }} />
               </Box>
-              <Modal id={cat.id} type="cat"></Modal>
+              <Modal id={cat.breeds[0].id} type="cat"></Modal>
             </Card>
           ))}
       </Box>
