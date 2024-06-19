@@ -43,4 +43,9 @@ export const getCatDataById = async (id) => {
   return data;
 };
 
+export const getBreeds = async () => {
+  const response = await fetch(`https://api.thecatapi.com/v1/breeds`, requestOptions);
+  return await response.json();
+}
+
 export default getCatData;
