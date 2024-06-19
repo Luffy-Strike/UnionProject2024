@@ -1,4 +1,3 @@
-import filterByRatio from "./filterByRatio";
 export const apiKey = import.meta.env.VITE_CAT_API_KEY;
 
 const headers = new Headers({

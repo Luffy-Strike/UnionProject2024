@@ -1,16 +1,23 @@
 // pages/Dogs.js
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from "react";
 import { getDogData } from "../utils/getDogData";
 import { Card, Box, IconButton } from "@mui/material";
 import Modal from "../components/Modal";
 import Header from "../components/Header";
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
-import { BreedsContext } from '../App';
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
+import { BreedsContext } from "../App";
 
 const Dogs = () => {
   const [favorites, setFavorites] = useState([]);
-  const dogs = useContext(BreedsContext).dogs;
+
+  const allBreeds = useContext(BreedsContext);
+  const searchHandler = (query) => {
+    if (window.location.href.endsWith("/dogs")) {
+      console.log('aa')
+    }
+  };
+  const dogs = allBreeds.dogs;
 
   const toggleFavorite = (dogId) => {
     setFavorites((prevFavorites) =>
@@ -20,10 +27,9 @@ const Dogs = () => {
     );
   };
 
-
   return (
     <>
-      <Header favorites={favorites} data={dogs} />
+      <Header favorites={favorites} data={dogs} onSearch={searchHandler} />
       <Box
         sx={{
           display: "grid",
@@ -46,7 +52,7 @@ const Dogs = () => {
                 boxShadow: 3,
                 position: "relative",
                 transition: "box-shadow 0.3s ease",
-                ':hover': {
+                ":hover": {
                   boxShadow: 20,
                 },
               }}
@@ -59,7 +65,7 @@ const Dogs = () => {
                   right: 8,
                   color: "white",
                   backgroundColor: "rgba(0, 0, 0, 0.5)",
-                  ':hover': {
+                  ":hover": {
                     backgroundColor: "rgba(0, 0, 0, 0.7)",
                   },
                 }}
@@ -72,7 +78,11 @@ const Dogs = () => {
               </IconButton>
               <h2>{dog.name}</h2>
               <Box sx={{ maxWidth: "300px" }}>
-                <img src={dog.image.url} alt="A cute dog" className="card_img" />
+                <img
+                  src={dog.image.url}
+                  alt="A cute dog"
+                  className="card_img"
+                />
               </Box>
               <Modal id={dog.id} type="dog"></Modal>
             </Card>

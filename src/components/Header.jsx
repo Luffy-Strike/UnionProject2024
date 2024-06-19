@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import FavoritesModal from './Favorites';
 import Search from './Search';
 
-const Header = ({ favorites, data }) => {
+
+const Header = ({ favorites, data, onSearch }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenModal = () => {
@@ -25,7 +26,7 @@ const Header = ({ favorites, data }) => {
           <button>Собаки</button>
         </Link>
         <button onClick={handleOpenModal}>Избранные</button>
-        <Search></Search>
+        <Search onSearch={onSearch}></Search>
       </nav>
       <FavoritesModal open={isModalOpen} onClose={handleCloseModal} favorites={favorites} data={data} />
     </header>

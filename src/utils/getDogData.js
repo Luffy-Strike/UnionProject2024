@@ -1,5 +1,3 @@
-import filterByRatio from "./filterByRatio";
-
 export const apiKey = import.meta.env.VITE_DOG_API_KEY;
 
 const headers = new Headers({

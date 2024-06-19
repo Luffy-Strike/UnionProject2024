@@ -16,7 +16,6 @@ function App() {
       try {
         const dogData = await getDogBreeds();
         const catData = await getCatBreeds();
-
         const allBreeds = { 'dogs': [...dogData], 'cats': [...catData]};
         setBreeds(allBreeds);
       } catch (error) {
