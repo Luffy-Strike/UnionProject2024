@@ -35,7 +35,7 @@ const Cats = () => {
         }}
       >
         {cats &&
-          cats.slice(0, 8).map((cat, index) => (
+          cats.map((cat, index) => (
             <Card
               key={index}
               className="card_content"
@@ -74,7 +74,7 @@ const Cats = () => {
               </IconButton>
               <h2>{cat.name}</h2>
               <Box sx={{ maxWidth: "300px" }}>
-                <img src={cat.image.url} alt="A cute cat" className="card_img" style={{ borderRadius: '5px' }} />
+                {cat.image ? <img src={cat.image.url} alt="A cute cat" className="card_img" style={{ borderRadius: '5px' }} /> : <img alt="A cute cat" className="card_img" style={{ borderRadius: '5px' }} />}
               </Box>
               <Modal id={cat.id} type="cat"></Modal>
             </Card>
