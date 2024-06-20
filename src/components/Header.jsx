@@ -1,6 +1,7 @@
 // components/Header.js
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Typography from '@mui/material/Typography';
 import FavoritesModal from './Favorites';
 import Search from './Search';
 
@@ -19,12 +20,12 @@ const Header = ({ favorites, data }) => {
     <header className="header">
       <nav>
         <Link to="/cats">
-          <button>Кошки</button>
+          <Typography component="button">Кошки</Typography>
         </Link>
         <Link to="/dogs">
-          <button>Собаки</button>
+          <Typography component="button">Собаки</Typography>
         </Link>
-        <button onClick={handleOpenModal}>Избранные</button>
+        <Typography component="button" onClick={handleOpenModal}>Избранные</Typography>
         <Search></Search>
       </nav>
       <FavoritesModal open={isModalOpen} onClose={handleCloseModal} favorites={favorites} data={data} />
