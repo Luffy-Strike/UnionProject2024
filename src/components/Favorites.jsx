@@ -1,9 +1,14 @@
 // components/FavoritesModal.js
-import React from 'react';
+import React, {useContext} from 'react';
 import { Box, Modal, Typography, IconButton } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
-const FavoritesModal = ({ open, onClose, favorites, data }) => {
-  const favoriteDogs = data?.filter(dog => favorites.includes(dog.id));
+import { Context } from '../App';
+
+const FavoritesModal = ({ open, onClose, data }) => {
+  const {favorites} = useContext(Context);
+
+
+
 
   return (
     <Modal
@@ -22,6 +27,7 @@ const FavoritesModal = ({ open, onClose, favorites, data }) => {
           bgcolor: 'background.paper',
           boxShadow: 24,
           p: 4,
+          borderRadius: '10px', 
         }}
       >
         <Box
@@ -31,7 +37,7 @@ const FavoritesModal = ({ open, onClose, favorites, data }) => {
             alignItems: 'center',
           }}
         >
-          <Typography id="favorites-modal-title" variant="h6" component="h2">
+          <Typography id="favorites-modal-title" variant="h6" component="h2" sx={{ color: 'black' }}>
             Избранные
           </Typography>
           <IconButton onClick={onClose}>
@@ -39,14 +45,13 @@ const FavoritesModal = ({ open, onClose, favorites, data }) => {
           </IconButton>
         </Box>
         <Box id="favorites-modal-description" sx={{ mt: 2 }}>
-          {favoriteDogs?.length > 0 ? (
-            favoriteDogs.map(dog => (
-              <Box key={dog.id} sx={{ mb: 2 }}>
-                <Typography variant="body1">{dog.breeds[0].name}</Typography>
-              </Box>
-            ))
-          ) : (
-            <Typography variant="body2">Нет избранных</Typography>
+          {favorites?.length > 0 ? (
+            <>{favorites.map(favorite => (
+              <Box key={favorite.id} sx={{ mb: 2 }}>
+                <Typography variant="body1" sx={{ color: 'black' }}>{favorite.name}</Typography>
+              </Box>))} </>)
+           : (
+            <Typography variant="body2" sx={{ color: 'black' }}>Нет избранных</Typography>
           )}
         </Box>
       </Box>

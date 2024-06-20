@@ -1,16 +1,16 @@
 // pages/Dogs.js
 import React, { useContext, useEffect, useState } from 'react';
-import { getDogData } from "../utils/getDogData";
+import { getBreeds, getDogData } from "../utils/getDogData";
 import { Card, Box, IconButton } from "@mui/material";
 import Modal from "../components/Modal";
 import Header from "../components/Header";
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
-import { BreedsContext } from '../App';
+import { Context } from '../App';
 
 const Dogs = () => {
-  const [favorites, setFavorites] = useState([]);
-  const dogs = useContext(BreedsContext).dogs;
+  const {breeds: {dogs}, favorites, setFavorites} = useContext(Context);
+
 
   const toggleFavorite = (dogId) => {
     setFavorites((prevFavorites) =>
@@ -20,7 +20,7 @@ const Dogs = () => {
     );
   };
 
-
+console.log(toggleFavorite);
   return (
     <>
       <Header favorites={favorites} data={dogs} />
@@ -33,7 +33,7 @@ const Dogs = () => {
         }}
       >
         {dogs &&
-          dogs.slice(0, 8).map((dog, index) => (
+          dogs.map((dog, index) => (
             <Card
               key={index}
               className="card_content"

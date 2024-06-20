@@ -7,10 +7,12 @@ import { getBreeds as getDogBreeds } from "./utils/getDogData";
 import { createContext } from "react";
 import { useEffect, useState } from "react";
 
-export const BreedsContext = createContext({});
+export const Context = createContext({});
 
 function App() {
   const [breeds, setBreeds] = useState([]);
+  const [favorites, setFavorites] = useState([]);
+
   useEffect(() => {
     const fetchBreeds = async () => {
       try {
@@ -29,11 +31,11 @@ function App() {
   }, [breeds]);
 
   return (
-    <BreedsContext.Provider value={breeds}>
+    <Context.Provider value={{breeds, favorites, setFavorites}}>
       <BrowserRouter>
         <RouterWrapper />
       </BrowserRouter>
-    </BreedsContext.Provider>
+    </Context.Provider>
   );
 }
 

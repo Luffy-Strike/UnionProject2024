@@ -6,11 +6,10 @@ import FavoritesModal from "../components/Favorites";
 import { Card, Box, IconButton } from "@mui/material";
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
-import { BreedsContext } from '../App';
+import { Context } from '../App';
 
 const Cats = () => {
-  const [favorites, setFavorites] = useState([]);
-  const cats = useContext(BreedsContext).cats;
+  const {breeds: {cats}, favorites, setFavorites} = useContext(Context);
 
   const toggleFavorite = (catId) => {
     setFavorites((prevFavorites) =>
@@ -35,7 +34,7 @@ const Cats = () => {
         }}
       >
         {cats &&
-          cats.slice(0, 8).map((cat, index) => (
+          cats.map((cat, index) => (
             <Card
               key={index}
               className="card_content"
@@ -74,7 +73,7 @@ const Cats = () => {
               </IconButton>
               <h2>{cat.name}</h2>
               <Box sx={{ maxWidth: "300px" }}>
-                <img src={cat.image.url} alt="A cute cat" className="card_img" style={{ borderRadius: '5px' }} />
+                {cat.image ? <img src={cat.image.url} alt="A cute cat" className="card_img" style={{ borderRadius: '5px' }} /> : <img alt="A cute cat" className="card_img" style={{ borderRadius: '5px' }} />}
               </Box>
               <Modal id={cat.id} type="cat"></Modal>
             </Card>
@@ -84,7 +83,6 @@ const Cats = () => {
       <FavoritesModal
         open={false} // Устанавливайте значение open в true, когда модальное окно открыто
         onClose={() => {}} // Обработчик закрытия модального окна
-        favorites={favorites} // Массив избранных элементов
         data={cats} // Данные кошек
         type="cat" // Тип животного (для фильтрации данных)
       />
