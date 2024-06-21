@@ -1,13 +1,26 @@
 import { Card, Box, IconButton } from "@mui/material";
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import { useContext } from "react";
 import { Context } from "../App";
 import Modal from "./Modal";
 
+const getImageUrl = (pet) => {
+  if (!pet) {
+    return '';
+  }
+  if (window.location.href.endsWith('/cats')) {
+    return `https://cdn2.thecatapi.com/images/${pet.reference_image_id}.jpg`;
+  } else if (window.location.href.endsWith('/dogs')) {
+    return `https://cdn2.thedogapi.com/images/${pet.reference_image_id}.jpg`;
+  } else {
+    return '';
+  }
+};
+
 const PetCard = ({ pet, id }) => {
-  const {favorites, setFavorites} = useContext(Context);
-  const type = window.location.href.endsWith('/cats') ? 'cat' : 'dog';
+  const { favorites, setFavorites } = useContext(Context);
+  const type = window.location.href.endsWith("/cats") ? "cat" : "dog";
   return (
     <Card
       key={id}
@@ -49,17 +62,20 @@ const PetCard = ({ pet, id }) => {
       <Box sx={{ maxWidth: "300px" }}>
         {pet.image ? (
           <img
-            src={pet.image.url}
-            alt="A cute pet"
-            className="card_img"
-            style={{ borderRadius: "5px" }}
-          />
+          src={getImageUrl(pet)}
+          alt="A cute pet"
+          className="card_img"
+          style={{ borderRadius: "5px" }}
+        />
+        
         ) : (
           <img
-            alt="A cute pet"
-            className="card_img"
-            style={{ borderRadius: "5px" }}
-          />
+          src={getImageUrl(pet)}
+          alt="A cute pet"
+          className="card_img"
+          style={{ borderRadius: "5px" }}
+        />
+
         )}
       </Box>
       <Modal id={pet.id} type={type}></Modal>
