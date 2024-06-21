@@ -12,6 +12,7 @@ export const Context = createContext({});
 function App() {
   const [breeds, setBreeds] = useState([]);
   const [favorites, setFavorites] = useState([]);
+  const [searchResults, setSearchResults] = useState([]); // Добавлено состояние для результатов поиска
 
   useEffect(() => {
     const fetchBreeds = async () => {
@@ -19,7 +20,7 @@ function App() {
         const dogData = await getDogBreeds();
         const catData = await getCatBreeds();
 
-        const allBreeds = { 'dogs': [...dogData], 'cats': [...catData]};
+        const allBreeds = { dogs: [...dogData], cats: [...catData] };
         setBreeds(allBreeds);
       } catch (error) {
         console.error("Error fetching data: ", error);
@@ -31,8 +32,9 @@ function App() {
   }, [breeds]);
 
   return (
-    <Context.Provider value={{breeds, favorites, setFavorites}}>
+    <Context.Provider value={{ breeds, favorites, setFavorites, searchResults, setSearchResults }}>
       <BrowserRouter>
+        <Header />
         <RouterWrapper />
       </BrowserRouter>
     </Context.Provider>

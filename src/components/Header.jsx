@@ -1,4 +1,3 @@
-// components/Header.js
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
@@ -26,7 +25,7 @@ const Header = ({ favorites, data }) => {
           <Typography component="button">Собаки</Typography>
         </Link>
         <Typography component="button" onClick={handleOpenModal}>Избранные</Typography>
-        <Search></Search>
+        <Search />
       </nav>
       <FavoritesModal open={isModalOpen} onClose={handleCloseModal} favorites={favorites} data={data} />
     </header>

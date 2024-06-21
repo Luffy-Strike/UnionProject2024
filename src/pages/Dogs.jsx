@@ -1,85 +1,31 @@
-// pages/Dogs.js
-import React, { useContext, useEffect, useState } from 'react';
-import { getBreeds, getDogData } from "../utils/getDogData";
-import { Card, Box, IconButton } from "@mui/material";
-import Modal from "../components/Modal";
-import Header from "../components/Header";
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
+import React, { useContext } from 'react';
+import { Box } from "@mui/material";
 import { Context } from '../App';
+import PetCard from '../components/PetCard';
 
-const Dogs = () => {
-  const {breeds: {dogs}, favorites, setFavorites} = useContext(Context);
+const Cats = () => {
+  const { breeds, searchResults } = useContext(Context);
+  
+  // Проверяем, что breeds и breeds.dogs определены, иначе используем пустой массив
+  const dogs = breeds && breeds.dogs ? breeds.dogs : [];
+  
+  // Проверяем, что searchResults определены и не пустые, иначе используем dogs
+  const dataToShow = searchResults && searchResults.length ? searchResults : dogs;
 
-
-  const toggleFavorite = (dogId) => {
-    setFavorites((prevFavorites) =>
-      prevFavorites.includes(dogId)
-        ? prevFavorites.filter((id) => id !== dogId)
-        : [...prevFavorites, dogId]
-    );
-  };
-
-console.log(toggleFavorite);
   return (
-    <>
-      <Header favorites={favorites} data={dogs} />
-      <Box
-        sx={{
-          display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)",
-          gridGap: "20px",
-          alignItems: "center",
-        }}
-      >
-        {dogs &&
-          dogs.map((dog, index) => (
-            <Card
-              key={index}
-              className="card_content"
-              sx={{
-                maxWidth: 400,
-                minWidth: 250,
-                flex: "1 0 150px",
-                backgroundColor: "#333333",
-                color: "#fff",
-                boxShadow: 3,
-                position: "relative",
-                transition: "box-shadow 0.3s ease",
-                ':hover': {
-                  boxShadow: 20,
-                },
-              }}
-            >
-              <IconButton
-                onClick={() => toggleFavorite(dog.id)}
-                sx={{
-                  position: "absolute",
-                  top: 8,
-                  right: 8,
-                  color: "white",
-                  backgroundColor: "rgba(0, 0, 0, 0.5)",
-                  ':hover': {
-                    backgroundColor: "rgba(0, 0, 0, 0.7)",
-                  },
-                }}
-              >
-                {favorites.includes(dog.id) ? (
-                  <FavoriteOutlinedIcon sx={{ color: "red" }} />
-                ) : (
-                  <FavoriteBorderOutlinedIcon />
-                )}
-              </IconButton>
-              <h2>{dog.name}</h2>
-              <Box sx={{ maxWidth: "300px" }}>
-                <img src={dog.image.url} alt="A cute dog" className="card_img" />
-              </Box>
-              <Modal id={dog.id} type="dog"></Modal>
-            </Card>
-          ))}
-      </Box>
-    </>
+    <Box
+      sx={{
+        display: "grid",
+        gridTemplateColumns: "repeat(4, 1fr)",
+        gridGap: "20px",
+        alignItems: "center",
+      }}
+    >
+      {dataToShow.map((dog, index) => (
+        <PetCard key={index} pet={dog} id={index} />
+      ))}
+    </Box>
   );
 };
 
-export default Dogs;
+export default Cats;
