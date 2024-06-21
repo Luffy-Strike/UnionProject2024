@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import Cats from "./pages/Cats";
 import Dogs from "./pages/Dogs";
+import Results from "./pages/Results";
 
 const RouterWrapper = () => {
   return (
